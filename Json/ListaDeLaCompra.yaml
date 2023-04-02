@@ -1,0 +1,99 @@
+openapi: 3.0.0
+info:
+  title: Lista de la compra
+  description: Especificación de la lista de la compra en formato JSON
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /compras:
+    get:
+      summary: Devuelve la lista de la compra
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaCompra'
+components:
+  schemas:
+    Supermercado:
+      type: object
+      required:
+        - nombre
+        - direccion
+        - geolocalizacion
+        - productos
+      properties:
+        nombre:
+          type: string
+          description: Nombre del supermercado
+        direccion:
+          type: string
+          description: Dirección del supermercado
+        geolocalizacion:
+          type: object
+          description: Coordenadas geográficas del supermercado
+          properties:
+            latitud:
+              type: number
+              format: float
+              description: Latitud
+            longitud:
+              type: number
+              format: float
+              description: Longitud
+        productos:
+          type: array
+          description: Productos disponibles en el supermercado
+          items:
+            $ref: '#/components/schemas/Producto'
+    Producto:
+      type: object
+      required:
+        - nombre
+        - unidad_medida
+        - precio
+        - cantidad
+        - comprado
+      properties:
+        nombre:
+          type: string
+          description: Nombre del producto
+        oferta:
+          type: boolean
+          description: Indica si el producto está en oferta
+        vigencia:
+          type: object
+          description: Periodo de vigencia de la oferta
+          properties:
+            inicio:
+              type: string
+              format: date
+              description: Fecha de inicio de la oferta
+            fin:
+              type: string
+              format: date
+              description: Fecha de fin de la oferta
+        unidad_medida:
+          type: string
+          description: Unidad de medida del producto
+        precio:
+          type: number
+          format: float
+          description: Precio del producto
+        cantidad:
+          type: integer
+          description: Cantidad del producto que se desea comprar
+        comprado:
+          type: boolean
+          description: Indica si el producto ha sido comprado o no
+    ListaCompra:
+      type: object
+      properties:
+        supermercados:
+          type: array
+          description: Lista de supermercados cercanos al domicilio de Juan
+          items:
+            $ref: '#/components/schemas/Supermercado'

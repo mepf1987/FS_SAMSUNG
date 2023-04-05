@@ -2,8 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Agenda_1 = require("./componentes/Agenda");
 var pedirDatos_1 = require("./servicios/pedirDatos");
-var readline_sync_1 = require("readline-sync");
-//import { prompt } from "prompt-sync";
+var readlineSync = require("readline-sync");
 // Función para mostrar el menú y obtener la opción del usuario
 function mostrarMenu() {
     console.log("Menu:");
@@ -11,7 +10,7 @@ function mostrarMenu() {
     console.log("2. Editar persona");
     console.log("3. Buscar persona");
     console.log("4. Salir");
-    var opcion = readline_sync_1.default.questionInt("Ingrese una opción: ");
+    var opcion = readlineSync.questionInt("Ingrese una opción: ");
     if (isNaN(opcion) || opcion < 1 || opcion > 4) {
         console.log("Opción inválida, por favor ingrese una opción válida.");
         return null;
@@ -28,7 +27,8 @@ while (opcion !== 4) {
             var nuevaPersona = (0, pedirDatos_1.pedirDatosPersona)();
             miAgenda.agregarPersona(nuevaPersona);
             console.log("Persona agregada correctamente:");
-            console.log(nuevaPersona);
+            /* console.log(nuevaPersona);*/
+            opcion = mostrarMenu();
             break;
         //case 2: // Buscar persona
         //case 3: // Editar persona
@@ -36,5 +36,4 @@ while (opcion !== 4) {
             console.log("Opción inválida. Por favor, intente de nuevo.");
             break;
     }
-    opcion = mostrarMenu();
 }

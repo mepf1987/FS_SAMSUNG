@@ -4,7 +4,7 @@ import { Mail } from "./Mail";
 
 export class Persona {
   private nombre: string;
-  private apellidos: string;
+  /*private apellidos: string;
   private edad: number;
   private dni: string;
   private cumpleanos: Date;
@@ -13,11 +13,11 @@ export class Persona {
   private direcciones: Direccion[];
   private mails: Mail[];
   private telefonos: Telefono[];
-  private notas: string;
+  private notas: string;*/
 
-  constructor(nombre: string, apellidos: string, edad: number, dni: string, cumpleanos: Date, colorFavorito: string, sexo: string, direcciones: Direccion[], mails: Mail[], telefonos: Telefono[], notas: string) {
+  constructor(nombre: string/*, apellidos: string, edad: number, dni: string, cumpleanos: Date, colorFavorito: string, sexo: string, direcciones: Direccion[], mails: Mail[], telefonos: Telefono[], notas: string*/) {
     this.nombre = nombre;
-    this.apellidos = apellidos;
+   /* this.apellidos = apellidos;
     this.edad = edad;
     this.dni = dni;
     this.cumpleanos = cumpleanos;
@@ -26,7 +26,7 @@ export class Persona {
     this.direcciones = direcciones;
     this.mails = mails;
     this.telefonos = telefonos;
-    this.notas = notas;
+    this.notas = notas;*/
   }
 
   public getNombre(): string {
@@ -37,7 +37,7 @@ export class Persona {
     this.nombre = nombre;
   }
 
-  public getApellidos(): string {
+ /* public getApellidos(): string {
     return this.apellidos;
   }
 
@@ -115,5 +115,5 @@ export class Persona {
 
   public setNotas(notas: string): void {
     this.notas = notas;
-  }
+  }*/
 }

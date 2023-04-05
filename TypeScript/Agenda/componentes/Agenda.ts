@@ -18,18 +18,18 @@ export class Agenda {
     }
   }
 
-  public buscarPersona(dni: string): Persona | undefined {
+  /*public buscarPersona(dni: string): Persona | undefined {
     return this.personas.find((persona) => persona.getDni() === dni);
-  }
+  }*/
 
   public mostrarTodas() {
     console.log(this.personas);
   }
 
-  public editarPersona(dni: string, datosActualizados: Partial<Persona>) {
+  /*public editarPersona(dni: string, datosActualizados: Partial<Persona>) {
     const persona = this.buscarPersona(dni);
     if (persona) {
       Object.assign(persona, datosActualizados);
     }
-  }
+  }*/
 }

@@ -1,8 +1,6 @@
-
 import { Agenda } from "./componentes/Agenda";
 import { pedirDatosPersona } from "./servicios/pedirDatos";
-import readlineSync from 'readline-sync';
-//import { prompt } from "prompt-sync";
+import * as readlineSync from 'readline-sync';
 
 // Función para mostrar el menú y obtener la opción del usuario
 function mostrarMenu(): number | null {
@@ -33,7 +31,8 @@ function mostrarMenu(): number | null {
         const nuevaPersona = pedirDatosPersona();
         miAgenda.agregarPersona(nuevaPersona);
         console.log("Persona agregada correctamente:");
-        console.log(nuevaPersona);
+       /* console.log(nuevaPersona);*/
+        opcion = mostrarMenu();
         break;
       //case 2: // Buscar persona
       //case 3: // Editar persona
@@ -42,5 +41,5 @@ function mostrarMenu(): number | null {
         console.log("Opción inválida. Por favor, intente de nuevo.");
         break;
     }
-    opcion = mostrarMenu();
+    
   }

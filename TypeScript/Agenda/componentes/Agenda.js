@@ -14,17 +14,11 @@ var Agenda = /** @class */ (function () {
             this.personas.splice(index, 1);
         }
     };
-    Agenda.prototype.buscarPersona = function (dni) {
-        return this.personas.find(function (persona) { return persona.getDni() === dni; });
-    };
+    /*public buscarPersona(dni: string): Persona | undefined {
+      return this.personas.find((persona) => persona.getDni() === dni);
+    }*/
     Agenda.prototype.mostrarTodas = function () {
         console.log(this.personas);
-    };
-    Agenda.prototype.editarPersona = function (dni, datosActualizados) {
-        var persona = this.buscarPersona(dni);
-        if (persona) {
-            Object.assign(persona, datosActualizados);
-        }
     };
     return Agenda;
 }());

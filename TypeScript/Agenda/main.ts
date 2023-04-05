@@ -10,10 +10,10 @@ function mostrarMenu(): number | null {
     console.log("3. Buscar persona");
     console.log("4. Salir");
   
-    const opcion = readlineSync.questionInt("Ingrese una opción: ");
+    const opcion = readlineSync.questionInt("Ingrese una opcion: ");
   
     if (isNaN(opcion) || opcion < 1 || opcion > 4) {
-      console.log("Opción inválida, por favor ingrese una opción válida.");
+      console.log("Opción inválida, por favor ingrese una opcion válida.");
       return null;
     }
   
@@ -38,7 +38,7 @@ function mostrarMenu(): number | null {
       //case 3: // Editar persona
         
       default:
-        console.log("Opción inválida. Por favor, intente de nuevo.");
+        console.log("Opcion invalida. Por favor, intente de nuevo.");
         break;
     }
     

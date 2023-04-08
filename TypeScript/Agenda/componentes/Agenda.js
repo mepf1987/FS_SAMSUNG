@@ -14,9 +14,18 @@ var Agenda = /** @class */ (function () {
             this.personas.splice(index, 1);
         }
     };
-    /*public buscarPersona(dni: string): Persona | undefined {
-      return this.personas.find((persona) => persona.getDni() === dni);
-    }*/
+    Agenda.prototype.buscarPersona = function (dni) {
+        var personaEncontrada = null;
+        this.personas.forEach(function (persona) {
+            if (persona.getDni() === dni) {
+                personaEncontrada = persona;
+            }
+        });
+        return personaEncontrada;
+    };
+    Agenda.prototype.contarPersonas = function () {
+        return this.personas.length;
+    };
     Agenda.prototype.mostrarTodas = function () {
         console.log(this.personas);
     };

@@ -17,10 +17,20 @@ export class Agenda {
       this.personas.splice(index, 1);
     }
   }
+ 
+  public buscarPersona( dni: string) {
+    let personaEncontrada: Persona | null = null;
+    this.personas.forEach((persona) => {
+      if (persona.getDni() === dni) {
+        personaEncontrada = persona;
+      }
+    });
+    return personaEncontrada;
+  }
 
-  /*public buscarPersona(dni: string): Persona | undefined {
-    return this.personas.find((persona) => persona.getDni() === dni);
-  }*/
+  public contarPersonas() {
+    return this.personas.length;
+  }
 
   public mostrarTodas() {
     console.log(this.personas);

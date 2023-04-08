@@ -5,9 +5,9 @@ import { Mail } from "./Mail";
 export class Persona {
   private nombre: string;
   /*private apellidos: string;
-  private edad: number;
+  private edad: number;*/
   private dni: string;
-  private cumpleanos: Date;
+ /* private cumpleanos: Date;
   private colorFavorito: string;
   private sexo: string;
   private direcciones: Direccion[];
@@ -15,11 +15,11 @@ export class Persona {
   private telefonos: Telefono[];
   private notas: string;*/
 
-  constructor(nombre: string/*, apellidos: string, edad: number, dni: string, cumpleanos: Date, colorFavorito: string, sexo: string, direcciones: Direccion[], mails: Mail[], telefonos: Telefono[], notas: string*/) {
+  constructor(nombre: string, dni: string/*, apellidos: string, edad: number, cumpleanos: Date, colorFavorito: string, sexo: string, direcciones: Direccion[], mails: Mail[], telefonos: Telefono[], notas: string*/) {
     this.nombre = nombre;
+    this.dni = dni;
    /* this.apellidos = apellidos;
     this.edad = edad;
-    this.dni = dni;
     this.cumpleanos = cumpleanos;
     this.colorFavorito = colorFavorito;
     this.sexo = sexo;
@@ -51,7 +51,7 @@ export class Persona {
 
   public setEdad(edad: number): void {
     this.edad = edad;
-  }
+  }*/
 
   public getDni(): string {
     return this.dni;
@@ -61,7 +61,7 @@ export class Persona {
     this.dni = dni;
   }
 
-  public getCumpleanos(): Date {
+  /*public getCumpleanos(): Date {
     return this.cumpleanos;
   }
 

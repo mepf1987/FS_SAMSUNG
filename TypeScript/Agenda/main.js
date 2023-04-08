@@ -9,10 +9,11 @@ function mostrarMenu() {
     console.log("1. Agregar persona");
     console.log("2. Editar persona");
     console.log("3. Buscar persona");
-    console.log("4. Salir");
-    var opcion = readlineSync.questionInt("Ingrese una opción: ");
-    if (isNaN(opcion) || opcion < 1 || opcion > 4) {
-        console.log("Opción inválida, por favor ingrese una opción válida.");
+    console.log("4. Cantidad de personas registradas");
+    console.log("5. Salir");
+    var opcion = readlineSync.questionInt("Ingrese una opcion: ");
+    if (isNaN(opcion) || opcion < 1 || opcion > 5) {
+        console.log("Opción inválida, por favor ingrese una opcion válida.");
         return null;
     }
     return opcion;
@@ -21,19 +22,29 @@ function mostrarMenu() {
 var miAgenda = new Agenda_1.Agenda();
 // Mostramos el menú y procesamos la opción del usuario
 var opcion = mostrarMenu();
-while (opcion !== 4) {
+while (opcion !== 5) {
     switch (opcion) {
         case 1: // Agregar persona
             var nuevaPersona = (0, pedirDatos_1.pedirDatosPersona)();
             miAgenda.agregarPersona(nuevaPersona);
             console.log("Persona agregada correctamente:");
             /* console.log(nuevaPersona);*/
-            opcion = mostrarMenu();
             break;
         //case 2: // Buscar persona
-        //case 3: // Editar persona
+        case 3:
+            var dni = (0, pedirDatos_1.pedirDNI)();
+            var personaEncontrada = miAgenda.buscarPersona(dni);
+            personaEncontrada !== null ?
+                console.log("Persona encontrada:", personaEncontrada) :
+                console.log("Persona NO encontrada");
+            break;
+        case 4:
+            var numeroPersonas = miAgenda.contarPersonas();
+            console.log("Hay registradas : ", numeroPersonas, " personas");
+            break;
         default:
-            console.log("Opción inválida. Por favor, intente de nuevo.");
+            console.log("Opcion invalida. Por favor, intente de nuevo.");
             break;
     }
+    opcion = mostrarMenu();
 }

@@ -5,12 +5,17 @@ import { Persona } from "../componentes/Persona";
 import * as readlineSync from 'readline-sync';
 
 
+export function pedirDNI(): string {
+  const dni = readlineSync.question("Introduce el DNI:");
+  return dni;
+}
+
 export function pedirDatosPersona(): Persona {
     const nombre =readlineSync.question("Introduce el nombre:");
     /*const apellidos = prompt("Introduce los apellidos:");
-    const edad = parseInt(prompt("Introduce la edad:"));
-    const dni = prompt("Introduce el DNI:");
-    const cumpleanos = prompt("Introduce la fecha de cumpleaños:");
+    const edad = parseInt(prompt("Introduce la edad:"));*/
+    const dni = pedirDNI();
+   /* const cumpleanos = prompt("Introduce la fecha de cumpleaños:");
     const colorFavorito = prompt("Introduce el color favorito:");
     const sexo = prompt("Introduce el sexo:");*/
     /*const direccion = new Direccion(
@@ -30,10 +35,10 @@ export function pedirDatosPersona(): Persona {
     const notas = prompt("Introduce las notas:");*/
   
     return new Persona(
-      nombre/*,
+      nombre,
+      dni/*,
       apellidos,
       edad,
-      dni,
       cumpleanos,
       colorFavorito,
       sexo,

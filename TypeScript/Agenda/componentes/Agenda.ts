@@ -1,4 +1,5 @@
 import { Persona } from "./Persona";
+import { pedirDatosPersona, pedirDNI } from "../servicios/pedirDatos";
 
 export class Agenda {
   private personas: Persona[];
@@ -7,8 +8,9 @@ export class Agenda {
     this.personas = [];
   }
 
-  public agregarPersona(persona: Persona) {
-    this.personas.push(persona);
+  public agregarPersona() {
+    let nuevaPersona = pedirDatosPersona();
+    this.personas.push(nuevaPersona);
   }
 
   public eliminarPersona(persona: Persona) {
@@ -18,7 +20,8 @@ export class Agenda {
     }
   }
  
-  public buscarPersona( dni: string) {
+  public buscarPersona( ) {
+    let dni = pedirDNI()
     let personaEncontrada: Persona | null = null;
     this.personas.forEach((persona) => {
       if (persona.getDni() === dni) {
@@ -36,10 +39,7 @@ export class Agenda {
     console.log(this.personas);
   }
 
-  /*public editarPersona(dni: string, datosActualizados: Partial<Persona>) {
-    const persona = this.buscarPersona(dni);
-    if (persona) {
-      Object.assign(persona, datosActualizados);
-    }
-  }*/
+  public editarPersona(persona: Persona) {
+     pedirDatosPersona(persona);
+  }
 }

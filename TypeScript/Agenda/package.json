@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "moment": "^2.29.4",
     "readline-sync": "^1.4.10",
     "typescript": "^5.0.3"
   },

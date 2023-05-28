@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<supermercado>
+  <nombre>Supermercado A</nombre>
+  <direccion>Calle Principal, 123</direccion>
+  <geolocalizacion>
+    <latitud>40.4165</latitud>
+    <longitud>-3.70256</longitud>
+  </geolocalizacion>
+  <productos>
+    <nombre>Leche semidesnatada</nombre>
+    <oferta>true</oferta>
+    <vigencia>
+      <inicio>2023-04-01</inicio>
+      <fin>2023-04-30</fin>
+    </vigencia>
+    <unidad_medida>litro</unidad_medida>
+    <precio>0.8</precio>
+    <cantidad>1</cantidad>
+    <comprado>false</comprado>
+  </productos>
+  <productos>
+    <nombre>Huevos</nombre>
+    <oferta>false</oferta>
+    <unidad_medida>docena</unidad_medida>
+    <precio>1.5</precio>
+    <cantidad>2</cantidad>
+    <comprado>true</comprado>
+  </productos>
+  <productos>
+    <nombre>Tomate</nombre>
+    <oferta>true</oferta>
+    <vigencia>
+      <inicio>2023-04-15</inicio>
+      <fin>2023-04-30</fin>
+    </vigencia>
+    <unidad_medida>kilo</unidad_medida>
+    <precio>1</precio>
+    <cantidad>2</cantidad>
+    <comprado>false</comprado>
+  </productos>
+</supermercado>

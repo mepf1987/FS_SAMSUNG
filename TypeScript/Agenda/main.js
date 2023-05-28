@@ -1,14 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Agenda_1 = require("./componentes/Agenda");
-var pedirDatos_1 = require("./servicios/pedirDatos");
 var readlineSync = require("readline-sync");
 // Función para mostrar el menú y obtener la opción del usuario
 function mostrarMenu() {
     console.log("Menu:");
     console.log("1. Agregar persona");
-    console.log("2. Editar persona");
-    console.log("3. Buscar persona");
+    console.log("2. Buscar persona");
+    console.log("3. Editar persona");
     console.log("4. Cantidad de personas registradas");
     console.log("5. Salir");
     var opcion = readlineSync.questionInt("Ingrese una opcion: ");
@@ -25,18 +24,16 @@ var opcion = mostrarMenu();
 while (opcion !== 5) {
     switch (opcion) {
         case 1: // Agregar persona
-            var nuevaPersona = (0, pedirDatos_1.pedirDatosPersona)();
-            miAgenda.agregarPersona(nuevaPersona);
+            miAgenda.agregarPersona();
             console.log("Persona agregada correctamente:");
-            /* console.log(nuevaPersona);*/
             break;
-        //case 2: // Buscar persona
-        case 3:
-            var dni = (0, pedirDatos_1.pedirDNI)();
-            var personaEncontrada = miAgenda.buscarPersona(dni);
-            personaEncontrada !== null ?
-                console.log("Persona encontrada:", personaEncontrada) :
-                console.log("Persona NO encontrada");
+        case 2: // Buscar persona
+            var personaEncontrada = miAgenda.buscarPersona();
+            personaEncontrada !== null ? console.log("Persona encontrada:", personaEncontrada) : console.log("Persona NO encontrada");
+            break;
+        case 3: // Editar persona
+            var personaEncontrada = miAgenda.buscarPersona();
+            personaEncontrada !== null ? miAgenda.editarPersona(personaEncontrada) : console.log("Persona NO encontrada");
             break;
         case 4:
             var numeroPersonas = miAgenda.contarPersonas();

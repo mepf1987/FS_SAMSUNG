@@ -2,25 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Persona = void 0;
 var Persona = /** @class */ (function () {
-    /* private cumpleanos: Date;
-     private colorFavorito: string;
-     private sexo: string;
-     private direcciones: Direccion[];
-     private mails: Mail[];
-     private telefonos: Telefono[];
-     private notas: string;*/
-    function Persona(nombre, dni /*, apellidos: string, edad: number, cumpleanos: Date, colorFavorito: string, sexo: string, direcciones: Direccion[], mails: Mail[], telefonos: Telefono[], notas: string*/) {
+    function Persona(nombre, dni, apellidos, edad, cumpleanios, colorFavorito, sexo, direcciones, mails, telefonos, notas) {
         this.nombre = nombre;
         this.dni = dni;
-        /* this.apellidos = apellidos;
-         this.edad = edad;
-         this.cumpleanos = cumpleanos;
-         this.colorFavorito = colorFavorito;
-         this.sexo = sexo;
-         this.direcciones = direcciones;
-         this.mails = mails;
-         this.telefonos = telefonos;
-         this.notas = notas;*/
+        this.apellidos = apellidos;
+        this.edad = edad;
+        this.cumpleanios = cumpleanios;
+        this.colorFavorito = colorFavorito;
+        this.sexo = sexo;
+        this.direcciones = direcciones;
+        this.mails = mails;
+        this.telefonos = telefonos;
+        this.notas = notas;
     }
     Persona.prototype.getNombre = function () {
         return this.nombre;
@@ -28,26 +21,65 @@ var Persona = /** @class */ (function () {
     Persona.prototype.setNombre = function (nombre) {
         this.nombre = nombre;
     };
-    /* public getApellidos(): string {
-       return this.apellidos;
-     }
-   
-     public setApellidos(apellidos: string): void {
-       this.apellidos = apellidos;
-     }
-   
-     public getEdad(): number {
-       return this.edad;
-     }
-   
-     public setEdad(edad: number): void {
-       this.edad = edad;
-     }*/
+    Persona.prototype.getApellidos = function () {
+        return this.apellidos;
+    };
+    Persona.prototype.setApellidos = function (apellidos) {
+        this.apellidos = apellidos;
+    };
+    Persona.prototype.getEdad = function () {
+        return this.edad;
+    };
+    Persona.prototype.setEdad = function (edad) {
+        this.edad = edad;
+    };
     Persona.prototype.getDni = function () {
         return this.dni;
     };
     Persona.prototype.setDni = function (dni) {
         this.dni = dni;
+    };
+    Persona.prototype.getCumpleanios = function () {
+        return this.cumpleanios;
+    };
+    Persona.prototype.setCumpleanios = function (cumpleanos) {
+        this.cumpleanios = cumpleanos;
+    };
+    Persona.prototype.getColorFavorito = function () {
+        return this.colorFavorito;
+    };
+    Persona.prototype.setColorFavorito = function (colorFavorito) {
+        this.colorFavorito = colorFavorito;
+    };
+    Persona.prototype.getSexo = function () {
+        return this.sexo;
+    };
+    Persona.prototype.setSexo = function (sexo) {
+        this.sexo = sexo;
+    };
+    Persona.prototype.getDirecciones = function () {
+        return this.direcciones;
+    };
+    Persona.prototype.setDirecciones = function (direcciones) {
+        this.direcciones = direcciones;
+    };
+    Persona.prototype.getMails = function () {
+        return this.mails;
+    };
+    Persona.prototype.setMails = function (mails) {
+        this.mails = mails;
+    };
+    Persona.prototype.getTelefonos = function () {
+        return this.telefonos;
+    };
+    Persona.prototype.setTelefonos = function (telefonos) {
+        this.telefonos = telefonos;
+    };
+    Persona.prototype.getNotas = function () {
+        return this.notas;
+    };
+    Persona.prototype.setNotas = function (notas) {
+        this.notas = notas;
     };
     return Persona;
 }());

@@ -5,14 +5,27 @@
     <meta charset="UTF-8">
     <title>Reproducir Video Local</title>
     <style>
-        main{
+        main {
             margin: 2% auto;
             padding: 4% 2%;
             text-align: center;
 
         }
+
         #loadingMessage {
             display: none;
+        }
+        .noCarga{
+            display: none;
+        }
+        .drag-drop-area {
+            margin: 0 auto;
+            width: 300px;
+            height: 50px;
+            border: 2px dashed #ccc;
+            text-align: center;
+            padding: 20px;
+            cursor: pointer;
         }
     </style>
     <script src="script.js"></script>
@@ -23,7 +36,12 @@
         <h2>Selecciona entre tus archivos el video que deseas reproducir</h2></br>
         <div id="loadingMessage">Cargando el video...</div>
         <video id="videoPlayer" controls></video></br></br>
-        <input type="file" id="fileInput" onchange="cargarVideo(event)">  
+        <div class="drag-drop-area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+            Arrastra y suelta el archivo aquí
+        </div>
+        <p>o</p>
+        <input type="file" id="fileInput" onchange="manualLoad(event)">
+
     </main>
 </body>
 

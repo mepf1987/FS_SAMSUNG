@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reproducir Video Local</title>
+    <style>
+        main{
+            margin: 2% auto;
+            padding: 4% 2%;
+            text-align: center;
+
+        }
+        #loadingMessage {
+            display: none;
+        }
+    </style>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <main>
+        <h2>Selecciona entre tus archivos el video que deseas reproducir</h2></br>
+        <div id="loadingMessage">Cargando el video...</div>
+        <video id="videoPlayer" controls></video></br></br>
+        <input type="file" id="fileInput" onchange="cargarVideo(event)">  
+    </main>
+</body>
+
+</html>

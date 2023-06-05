@@ -17,16 +17,20 @@
         }
         $sql= "INSERT INTO usuario (nombre, apellido, email)
         VALUES('$nombre', '$apellido', '$email')";
+
         if($conn->query($sql) === TRUE){
             $respuesta = "New record create successfully";
         }else{
             $respuesta = "Error: " . $sql . "<br>" . $conn->error ;
         }
+
         $conn-> close();
+
+        include 'formulario.html';
+        
     }
 
-    $respuesta = urlencode($respuesta);
-    header("Location: formulario.html?respuesta=$respuesta");
+    
 
 ?>
 

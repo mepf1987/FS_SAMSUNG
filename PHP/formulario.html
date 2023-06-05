@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Formulario de registro</title>
         <link href="estilos.css" rel="stylesheet" type="text/css">
-        <script src="script.js"></script>
+        <!--<script src="script.js"></script>-->
 
     </head>
     <body>
@@ -26,9 +26,9 @@
                 <label for="email">Email<spam><em>(requerido)</em></spam></label>
                 <input type="text" name="email" class="form-input" required/>
             </div>
-            <input type="submit" name="submit" class="form-btn" value="Suscribirse"/>
+            <input type="submit" name="submit" class="form-btn" value="Suscribirse"/></br>
 
-            <p id="respuesta"></p>
+            <p><?php echo $respuesta; ?></p>
 
 
            </form>

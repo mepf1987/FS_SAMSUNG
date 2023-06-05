@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulario de registro</title>
+        <link href="estilos.css" rel="stylesheet" type="text/css">
+        <script src="script.js"></script>
+
+    </head>
+    <body>
+        <div class="group">
+           <form method="POST" action="formulario.php">
+            <h2>
+                <em>Formulario de Registro</em>
+            </h2>
+
+            <div class="form-question">
+                <label for="nombre">Nombre<spam><em>(requerido)</em></spam></label>
+                <input type="text" name="nombre" class="form-input" required/>
+            </div>
+            <div class="form-question">
+                <label for="apellido">Apellido<spam><em>(requerido)</em></spam></label>
+                <input type="text" name="apellido" class="form-input" required/>
+            </div>
+            <div class="form-question">
+                <label for="email">Email<spam><em>(requerido)</em></spam></label>
+                <input type="text" name="email" class="form-input" required/>
+            </div>
+            <input type="submit" name="submit" class="form-btn" value="Suscribirse"/>
+
+            <p id="respuesta"></p>
+
+
+           </form>
+        </div>
+    </body>
+</html>

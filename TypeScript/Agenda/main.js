@@ -33,7 +33,7 @@ while (opcion !== 5) {
             break;
         case 3: // Editar persona
             var personaEncontrada = miAgenda.buscarPersona();
-            personaEncontrada !== null ? miAgenda.editarPersona(personaEncontrada) : console.log("Persona NO encontrada");
+            personaEncontrada !== undefined ? miAgenda.editarPersona(personaEncontrada) : console.log("Persona NO encontrada");
             break;
         case 4:
             var numeroPersonas = miAgenda.contarPersonas();

@@ -6,8 +6,11 @@ var Agenda = /** @class */ (function () {
     function Agenda() {
         this.personas = [];
     }
-    Agenda.prototype.agregarPersona = function () {
-        var nuevaPersona = (0, pedirDatos_1.pedirDatosPersona)();
+    Agenda.prototype.agregarPersona = function (nuevaPersona) {
+        if (nuevaPersona === void 0) { nuevaPersona = undefined; }
+        if (nuevaPersona === undefined) {
+            nuevaPersona = (0, pedirDatos_1.pedirDatosPersona)();
+        }
         this.personas.push(nuevaPersona);
     };
     Agenda.prototype.eliminarPersona = function (persona) {
@@ -16,9 +19,12 @@ var Agenda = /** @class */ (function () {
             this.personas.splice(index, 1);
         }
     };
-    Agenda.prototype.buscarPersona = function () {
-        var dni = (0, pedirDatos_1.pedirDNI)();
-        var personaEncontrada = null;
+    Agenda.prototype.buscarPersona = function (dni) {
+        if (dni === void 0) { dni = undefined; }
+        if (dni === undefined) {
+            dni = (0, pedirDatos_1.pedirDNI)();
+        }
+        var personaEncontrada = undefined;
         this.personas.forEach(function (persona) {
             if (persona.getDni() === dni) {
                 personaEncontrada = persona;
@@ -33,7 +39,10 @@ var Agenda = /** @class */ (function () {
         console.log(this.personas);
     };
     Agenda.prototype.editarPersona = function (persona) {
-        (0, pedirDatos_1.pedirDatosPersona)(persona);
+        var personaAEditar = persona;
+        if (personaAEditar === undefined) {
+            personaAEditar = this.buscarPersona();
+        }
     };
     return Agenda;
 }());

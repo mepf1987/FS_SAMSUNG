@@ -126,7 +126,7 @@ function pedirDatosPersona(persona) {
     }
     //SEXO
     var sexo;
-    while (sexo == undefined) {
+    while (sexo === undefined) {
         persona != null ? console.log("Sexo actual:" + persona.getSexo()) : "";
         sexo = readlineSync.question("Introduce el sexo (H:Hombre | M:Mujer):");
         sexo == null ? (persona != null ? sexo = persona.getSexo() : "") : (sexo === "H" || sexo === "M") ? "" : sexo = undefined;
@@ -136,7 +136,16 @@ function pedirDatosPersona(persona) {
     //MAIL 
     var mail = new Mail_1.Mail(readlineSync.question("Introduce el tipo de correo electronico:"), readlineSync.question("Introduce el correo electronico:"));
     //TELEFONO  
-    var telefono = new Telefono_1.Telefono(readlineSync.question("Introduce el tipo de telefono:"), parseInt(readlineSync.question("Introduce el numero de telefono:")));
+    var tipoTelefono, numeroTelefono;
+    while (tipoTelefono === undefined) {
+        tipoTelefono = readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
+        tipoTelefono = (0, Telefono_1.validarTipoTelefono)(tipoTelefono);
+    }
+    while (numeroTelefono === undefined) {
+        numeroTelefono = parseInt(readlineSync.question("Introduce el numero de telefono:"));
+        numeroTelefono = (0, Telefono_1.validarNumeroTelefono)(numeroTelefono);
+    }
+    var telefono = new Telefono_1.Telefono(tipoTelefono, numeroTelefono);
     //NOTAS
     var notas = readlineSync.question("Introduce las notas:");
     return new Persona_1.Persona(nombre, dni, apellidos, edad, cumpleanios, colorFavorito, sexo, direcciones, [mail], [telefono], notas);

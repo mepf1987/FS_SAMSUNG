@@ -1,5 +1,6 @@
+"use strict";
 function saludo() {
-    var s = "Hola Mundo! ";
+    let s = "Hola Mundo! ";
     return s;
 }
 console.log(saludo());

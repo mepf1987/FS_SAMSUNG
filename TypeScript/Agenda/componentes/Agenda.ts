@@ -8,8 +8,10 @@ export class Agenda {
     this.personas = [];
   }
 
-  public agregarPersona() {
-    let nuevaPersona = pedirDatosPersona();
+  public agregarPersona(nuevaPersona : Persona|undefined = undefined) {
+    if(nuevaPersona  === undefined){
+      nuevaPersona = pedirDatosPersona();
+    }
     this.personas.push(nuevaPersona);
   }
 
@@ -20,9 +22,11 @@ export class Agenda {
     }
   }
  
-  public buscarPersona( ) {
-    let dni = pedirDNI()
-    let personaEncontrada: Persona | null = null;
+  public buscarPersona( dni :string|undefined = undefined) {
+    if(dni === undefined){
+      dni =  pedirDNI()
+    }
+    let personaEncontrada: Persona | undefined = undefined;
     this.personas.forEach((persona) => {
       if (persona.getDni() === dni) {
         personaEncontrada = persona;
@@ -40,6 +44,10 @@ export class Agenda {
   }
 
   public editarPersona(persona: Persona) {
-     pedirDatosPersona(persona);
+    let personaAEditar: Persona|undefined = persona;
+    if(personaAEditar  === undefined){
+      personaAEditar= this.buscarPersona();
+    }
   }
+
 }

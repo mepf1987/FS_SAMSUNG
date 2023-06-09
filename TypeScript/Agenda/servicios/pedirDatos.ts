@@ -1,6 +1,6 @@
 import { Direccion } from "../componentes/Direccion";
 import { Mail } from "../componentes/Mail";
-import { Telefono } from "../componentes/Telefono";
+import { Telefono, validarTipoTelefono, validarNumeroTelefono} from "../componentes/Telefono";
 import { Persona } from "../componentes/Persona";
 import * as readlineSync from 'readline-sync';
 
@@ -19,7 +19,7 @@ export function aniadirOEditarDireccion(persona?: Persona): Direccion[]{
 
   let direcciones: Direccion[];
   let accion;
-  let numDirecciones = 0;
+  let numDirecciones = 1;
 
   if (persona != null) {
     console.log("Las direcciones registradas son:")
@@ -161,7 +161,7 @@ export function pedirDatosPersona(persona?: Persona): Persona {
 
   //SEXO
   let sexo;
-  while (sexo == undefined) {
+  while (sexo === undefined) {
     persona != null ? console.log("Sexo actual:" + persona.getSexo()) : ""
     sexo = readlineSync.question("Introduce el sexo (H:Hombre | M:Mujer):")
     sexo == null ? (persona != null ? sexo = persona.getSexo() : "") : (sexo === "H" || sexo === "M") ? "" : sexo = undefined;
@@ -177,10 +177,20 @@ export function pedirDatosPersona(persona?: Persona): Persona {
   );
 
   //TELEFONO  
-  let telefono = new Telefono(
-    readlineSync.question("Introduce el tipo de telefono:"),
-    parseInt(readlineSync.question("Introduce el numero de telefono:"))
-  );
+
+  let tipoTelefono, numeroTelefono ;
+
+  while (tipoTelefono === undefined){
+    tipoTelefono= readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
+    tipoTelefono= validarTipoTelefono(tipoTelefono);
+  }
+  while(numeroTelefono === undefined){
+    numeroTelefono=parseInt(readlineSync.question("Introduce el numero de telefono:"));
+    numeroTelefono=validarNumeroTelefono(numeroTelefono);
+  }
+
+  let telefono = new Telefono(tipoTelefono, numeroTelefono);
+
 
   //NOTAS
   let notas = readlineSync.question("Introduce las notas:");

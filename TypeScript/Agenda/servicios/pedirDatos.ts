@@ -116,7 +116,7 @@ export function aniadirOEditarDireccion(persona?: Persona): Direccion[]{
 export function pedirDatosPersona(persona?: Persona): Persona {
 
   //Nombre
-  let nombre;
+  let nombre  : string | undefined;
   while (nombre == undefined) {
     persona != null ? console.log("Nombre actual:" + persona.getNombre()) : ""
     nombre = readlineSync.question("Introduce el nombre:");
@@ -124,7 +124,7 @@ export function pedirDatosPersona(persona?: Persona): Persona {
   }
 
   //Apellidos
-  let apellidos;
+  let apellidos : string | undefined;
   while (apellidos == undefined) {
     persona != null ? console.log("Apellidos actuales:" + persona.getApellidos()) : ""
     apellidos = readlineSync.question("Introduce los apellidos:");
@@ -132,7 +132,7 @@ export function pedirDatosPersona(persona?: Persona): Persona {
   }
 
   //Edad
-  let edad;
+  let edad : number | undefined;
   while (edad == undefined) {
     persona != null ? console.log("Edad actual:" + persona.getEdad()) : ""
     edad = parseInt(readlineSync.question("Introduce la edad:"));
@@ -140,10 +140,10 @@ export function pedirDatosPersona(persona?: Persona): Persona {
   }
 
   //DNI
-  let dni = pedirDNI();
+  let dni:string | undefined = pedirDNI();
 
   //CUMPLEANIOS
-  let cumpleanios;
+  let cumpleanios: Date | undefined;
   while (cumpleanios == undefined) {
     persona != null ? console.log("Cumpleanios actual:" + persona.getCumpleanios()) : ""
     cumpleanios = new Date(readlineSync.question("Introduce la fecha de cumpleanios con el siguiente formato 'yyyy-mm-dd':"))
@@ -152,7 +152,7 @@ export function pedirDatosPersona(persona?: Persona): Persona {
 
 
   //COLOR FAVORITO
-  let colorFavorito;
+  let colorFavorito : string | undefined;
   while (colorFavorito == undefined) {
     persona != null ? console.log("ColorFavorito actual:" + persona.getColorFavorito()) : ""
     colorFavorito = readlineSync.question("Introduce el color favorito:")
@@ -160,7 +160,7 @@ export function pedirDatosPersona(persona?: Persona): Persona {
   }
 
   //SEXO
-  let sexo;
+  let sexo : string | undefined;
   while (sexo === undefined) {
     persona != null ? console.log("Sexo actual:" + persona.getSexo()) : ""
     sexo = readlineSync.question("Introduce el sexo (H:Hombre | M:Mujer):")
@@ -168,10 +168,10 @@ export function pedirDatosPersona(persona?: Persona): Persona {
   }
 
   //DIRECCION
-  let direcciones = aniadirOEditarDireccion(persona);
+  let direcciones : Direccion[] = aniadirOEditarDireccion(persona);
   
   //MAIL 
-  let mail = new Mail(
+  let mail : Mail = new Mail(
     readlineSync.question("Introduce el tipo de correo electronico:"),
     readlineSync.question("Introduce el correo electronico:")
   );
@@ -189,11 +189,11 @@ export function pedirDatosPersona(persona?: Persona): Persona {
     numeroTelefono=validarNumeroTelefono(numeroTelefono);
   }
 
-  let telefono = new Telefono(tipoTelefono, numeroTelefono);
+  let telefono : Telefono  = new Telefono(tipoTelefono, numeroTelefono);
 
 
   //NOTAS
-  let notas = readlineSync.question("Introduce las notas:");
+  let notas : string = readlineSync.question("Introduce las notas:");
 
   return new Persona(
     nombre,

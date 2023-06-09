@@ -19,7 +19,7 @@ exports.pedirDNI = pedirDNI;
 function aniadirOEditarDireccion(persona) {
     var direcciones;
     var accion;
-    var numDirecciones = 0;
+    var numDirecciones = 1;
     if (persona != null) {
         console.log("Las direcciones registradas son:");
         console.log(persona.getDirecciones());

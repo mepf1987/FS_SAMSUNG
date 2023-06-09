@@ -20,12 +20,26 @@ function mostrarMenu(): number | null {
   
     return opcion;
   }
+
+  function preCargaPersonas() {
+    
+  }
+
+  function editarDatosPersonas() {
+    
+  }
   
   // Creamos una instancia de la agenda
   const miAgenda = new Agenda();
-  
+
+  // Pre-cargar 3 personas
+  preCargaPersonas();
+  editarDatosPersonas();
+
+
   // Mostramos el menú y procesamos la opción del usuario
   let opcion = mostrarMenu();
+
   while (opcion !== 5) {
     switch (opcion) {
       case 1: // Agregar persona

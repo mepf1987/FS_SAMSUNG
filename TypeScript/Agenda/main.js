@@ -17,8 +17,15 @@ function mostrarMenu() {
     }
     return opcion;
 }
+function preCargaPersonas() {
+}
+function editarDatosPersonas() {
+}
 // Creamos una instancia de la agenda
 var miAgenda = new Agenda_1.Agenda();
+// Pre-cargar 3 personas
+preCargaPersonas();
+editarDatosPersonas();
 // Mostramos el menú y procesamos la opción del usuario
 var opcion = mostrarMenu();
 while (opcion !== 5) {

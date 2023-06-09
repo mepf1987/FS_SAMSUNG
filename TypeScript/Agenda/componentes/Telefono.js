@@ -29,8 +29,10 @@ function validarNumeroTelefono(numero) {
     var num;
     var telefonoRegex = /^\+\d{1,3}\s?\(\d{1,4}\)\s?\d{1,}-?\d{1,}$/;
     numero !== undefined ? num = numero.toString() : num = undefined;
-    if (num !== undefined && !telefonoRegex.test(num)) {
-        numero = undefined;
+    if (num !== undefined) {
+        if (!telefonoRegex.test(num)) {
+            numero = undefined;
+        }
     }
     return numero;
 }

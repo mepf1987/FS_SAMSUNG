@@ -36,9 +36,10 @@ var Agenda = /** @class */ (function () {
         return this.personas.length;
     };
     Agenda.prototype.mostrarTodas = function () {
-        console.log(this.personas);
+        console.log(JSON.stringify(this.personas));
     };
-    Agenda.prototype.editarPersona = function (persona) {
+    Agenda.prototype.editarPersona = function (persona, editarCompleta) {
+        if (editarCompleta === void 0) { editarCompleta = false; }
         var personaAEditar = persona;
         if (personaAEditar === undefined) {
             personaAEditar = this.buscarPersona();

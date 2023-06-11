@@ -23,15 +23,18 @@ export class Agenda {
   }
  
   public buscarPersona( dni :string|undefined = undefined) {
+
     if(dni === undefined){
       dni =  pedirDNI()
     }
+
     let personaEncontrada: Persona | undefined = undefined;
     this.personas.forEach((persona) => {
       if (persona.getDni() === dni) {
         personaEncontrada = persona;
       }
     });
+    
     return personaEncontrada;
   }
 
@@ -40,14 +43,17 @@ export class Agenda {
   }
 
   public mostrarTodas() {
-    console.log(this.personas);
+    console.log(JSON.stringify(this.personas));
   }
 
-  public editarPersona(persona: Persona) {
-    let personaAEditar: Persona|undefined = persona;
+  public editarPersona( dni :string|undefined = undefined ) {
+    let personaAEditar: Persona|undefined;
     if(personaAEditar  === undefined){
-      personaAEditar= this.buscarPersona();
+      personaAEditar= this.buscarPersona(dni);
     }
+
+
+
   }
 
 }

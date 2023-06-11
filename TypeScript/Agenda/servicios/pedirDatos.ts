@@ -1,6 +1,6 @@
 import { Direccion } from "../componentes/Direccion";
-import { Mail } from "../componentes/Mail";
-import { Telefono, validarTipoTelefono, validarNumeroTelefono} from "../componentes/Telefono";
+import { Mail, validarTipoEmail } from "../componentes/Mail";
+import { Telefono, validarTipoTelefono, validarNumeroTelefono } from "../componentes/Telefono";
 import { Persona } from "../componentes/Persona";
 import * as readlineSync from 'readline-sync';
 
@@ -15,7 +15,7 @@ export function pedirDNI(persona?: Persona): string {
   return dni;
 }
 
-export function aniadirOEditarDireccion(persona?: Persona): Direccion[]{
+function aniadirOEditarDireccion(persona?: Persona): Direccion[] {
 
   let direcciones: Direccion[];
   let accion;
@@ -29,20 +29,36 @@ export function aniadirOEditarDireccion(persona?: Persona): Direccion[]{
   persona != undefined ? accion = readlineSync.question("Acciones a realizar: S - Sobreescribir alguna existente, A - Aniadir a lista actual, E - Empezar nueva lista ") : direcciones = [];
   persona != undefined && accion !== 'E' ? direcciones = persona.getDirecciones() : direcciones = [];
   numDirecciones = parseInt(readlineSync.question("Numero de direcciones que quieres aniadir o editar:"))
-  
+
 
   if (accion !== 'S') {
     while (direcciones.length === 0 || numDirecciones != 0) {
 
+      let calle: string = aniadirOEditarTexto("Calle");
+      let numero: number = aniadirOEditarNumericos("Numero");
+      let codigoPostal: string = aniadirOEditarTexto("Codigo postal"); //LETRAS Y NUMEROS
+      let poblacion: string = aniadirOEditarTexto("Poblacion");
+      let provincia: string = aniadirOEditarTexto("Provincia");
+      let piso: number | undefined = parseInt(readlineSync.question("Introduce el piso:"));
+      if(piso != undefined && validarTextoDefinido(piso)) {
+        piso=aniadirOEditarNumericos("Piso", piso, false)
+      }
+      let letra: string | undefined = readlineSync.question("Introduce la letra:");
+      console.log(validarTextoDefinido(letra))
+      if(letra != undefined && !validarTextoDefinido(letra)) {
+        letra=aniadirOEditarTexto("Letra", letra, false)
+      }
+      letra != undefined ? aniadirOEditarTexto("Letra", letra) : "";
+
       let direccion = new Direccion(
-        direcciones.length - 1,
-        readlineSync.question("Introduce la calle:"),
-        parseInt(readlineSync.question("Introduce el numero:")),
-        readlineSync.question("Introduce el codigo postal:"),
-        readlineSync.question("Introduce la poblacion:"),
-        readlineSync.question("Introduce la provincia:"),
-        parseInt(readlineSync.question("Introduce el piso:")),
-        readlineSync.question("Introduce la letra:")
+        direcciones.length > 0 ? direcciones.length - 1 : 1,
+        calle,
+        numero,
+        codigoPostal,
+        poblacion,
+        provincia,
+        piso,
+        letra
       );
       numDirecciones -= 1
       direcciones.push(direccion);
@@ -51,52 +67,26 @@ export function aniadirOEditarDireccion(persona?: Persona): Direccion[]{
   } else {
 
     while (numDirecciones != 0) {
-      let direccionEditar=parseInt(readlineSync.question("Indica el id de la direccion a editar:"));
+      let direccionEditar = parseInt(readlineSync.question("Indica el id de la direccion a editar:"));
       console.log("Se va a modificar la direccion con id:" + direcciones[direccionEditar].getId())
 
-      let calle : string | undefined ;
-      while (calle == undefined) {
-        console.log("Calle actual:" + direcciones[direccionEditar].getNombreCalle())
-        calle = readlineSync.question("Introduce la nueva calle:")
-        calle == undefined ? (direcciones[direccionEditar].getNombreCalle() != undefined ? calle = direcciones[direccionEditar].getNombreCalle() : calle = undefined) : direcciones[direccionEditar].setNombreCalle(calle);
-      }
+      direcciones[direccionEditar].setNombreCalle(aniadirOEditarTexto("Calle", direcciones[direccionEditar].getNombreCalle()));
+      direcciones[direccionEditar].setNumero(aniadirOEditarNumericos("Numero", direcciones[direccionEditar].getNumero()));
 
-      let numero  : number | undefined;
-      while (numero == undefined) {
-        console.log("Numero actual:" + direcciones[direccionEditar].getNumero())
-        numero = parseInt(readlineSync.question("Introduce el nuevo numero:"))
-        numero == undefined ? (direcciones[direccionEditar].getNumero() != undefined? numero = direcciones[direccionEditar].getNumero() : numero = undefined) : direcciones[direccionEditar].setNumero(numero);
-      }
-
-      let codigoPostal  : string | undefined;
+      let codigoPostal: string | undefined;
       while (codigoPostal == undefined) {
         console.log("Codigo postal actual:" + direcciones[direccionEditar].getCodigoPostal())
         codigoPostal = readlineSync.question("Introduce el nuevo codigo postal:")
         codigoPostal == undefined ? (direcciones[direccionEditar].getCodigoPostal() != undefined ? codigoPostal = direcciones[direccionEditar].getCodigoPostal() : codigoPostal = undefined) : direcciones[direccionEditar].setCodigoPostal(codigoPostal);
       }
 
-      let poblacion  : string | undefined;
-      while (poblacion == undefined) {
-        console.log("Poblacion actual:" + direcciones[direccionEditar].getPoblacion())
-        poblacion = readlineSync.question("Introduce el nuevo poblacion:")
-        poblacion == undefined ? (direcciones[direccionEditar].getPoblacion() != undefined ? poblacion = direcciones[direccionEditar].getPoblacion() : poblacion = undefined) : direcciones[direccionEditar].setPoblacion(poblacion);
-      }
+      direcciones[direccionEditar].setPoblacion(aniadirOEditarTexto("Poblacion", direcciones[direccionEditar].getPoblacion()));
+      direcciones[direccionEditar].setProvincia(aniadirOEditarTexto("Provincia", direcciones[direccionEditar].getProvincia()));
+      direcciones[direccionEditar].setPiso(aniadirOEditarNumericos("Piso", direcciones[direccionEditar].getPiso()));
+      direcciones[direccionEditar].setLetra(aniadirOEditarTexto("Letra", direcciones[direccionEditar].getLetra()));
 
-      let provincia  : string | undefined;
-      while (provincia == undefined) {
-        console.log("Provincia actual:" + direcciones[direccionEditar].getProvincia())
-        provincia = readlineSync.question("Introduce el nuevo provincia:")
-        provincia == undefined ? (direcciones[direccionEditar].getProvincia() != undefined ? provincia = direcciones[direccionEditar].getProvincia() : provincia = undefined) : direcciones[direccionEditar].setProvincia(provincia);
-      }
 
-      let piso;
-      //while(piso==undefined){
-      console.log("Piso actual:" + direcciones[direccionEditar].getPiso())
-      piso = parseInt(readlineSync.question("Introduce el nuevo piso:"))
-      piso == undefined ? (direcciones[direccionEditar].getPiso() != undefined ? piso = direcciones[direccionEditar].getPiso() : piso = undefined) : direcciones[direccionEditar].setPiso(piso);
-      //}
-
-      let letra : string | undefined;
+      let letra: string | undefined;
       //while(letra==undefined){
       console.log("Letra actual:" + direcciones[direccionEditar].getLetra())
       letra = readlineSync.question("Introduce el nuevo letra:")
@@ -105,7 +95,7 @@ export function aniadirOEditarDireccion(persona?: Persona): Direccion[]{
 
       numDirecciones -= 1
     }
-    
+
 
   }
 
@@ -113,34 +103,66 @@ export function aniadirOEditarDireccion(persona?: Persona): Direccion[]{
 
 }
 
+function validarTextoDefinido(texto: any): Boolean {
+  const regex = /^[a-zA-Z\s]+$/;
+  let isValid = true;
+  if (!regex.test(texto)) {
+    isValid = false;
+
+  }
+
+  return isValid;
+}
+
+function aniadirOEditarTexto(atributo: string, value: string | undefined = undefined, isRequired: Boolean = true): string {
+
+  while (value === undefined) {
+    value != undefined ? console.log(atributo + " actual:" + value) : "";
+    value = readlineSync.question("Introduce el " + atributo.toLocaleLowerCase() + " :");
+    if (!validarTextoDefinido(value)) {
+      value = undefined;
+      if (isRequired) {
+        console.log("Es un campo obligatorio y no puede ser númerico");
+      } else {
+        console.log("No puede ser númerico");
+        
+      }
+    }
+  }
+
+  return value;
+}
+
+function aniadirOEditarNumericos(atributo: string, value: number | undefined = undefined, isRequired: Boolean = true): number {
+
+  while (value === undefined) {
+    value != undefined ? console.log(atributo + " actual:" + value) : "";
+    value = parseInt(readlineSync.question("Introduce el " + atributo.toLocaleLowerCase() + " :"));
+    if (validarTextoDefinido(value)) {
+      value = undefined;
+      if (isRequired) {
+        console.log("Es un campo obligatorio y no puede ser texto");
+      } else {
+        console.log("No puede ser texto"); 
+      
+      }
+    }
+  }
+
+  return value;
+}
+
 export function pedirDatosPersona(persona?: Persona): Persona {
 
   //Nombre
-  let nombre  : string | undefined;
-  while (nombre == undefined) {
-    persona != undefined ? console.log("Nombre actual:" + persona.getNombre()) : ""
-    nombre = readlineSync.question("Introduce el nombre:");
-    nombre == undefined ? (persona != undefined ? nombre = persona.getNombre() : "") : ""
-  }
-
+  let nombre: string = aniadirOEditarTexto("Nombre", persona?.getNombre());
   //Apellidos
-  let apellidos : string | undefined;
-  while (apellidos == undefined) {
-    persona != undefined ? console.log("Apellidos actuales:" + persona.getApellidos()) : ""
-    apellidos = readlineSync.question("Introduce los apellidos:");
-    apellidos == undefined ? (persona != undefined ? apellidos = persona.getApellidos() : "") : ""
-  }
-
+  let apellidos: string = aniadirOEditarTexto("Apellidos", persona?.getApellidos());
   //Edad
-  let edad : number | undefined;
-  while (edad == undefined) {
-    persona != undefined ? console.log("Edad actual:" + persona.getEdad()) : ""
-    edad = parseInt(readlineSync.question("Introduce la edad:"));
-    edad == undefined ? (persona != undefined ? edad = persona.getEdad() : "") : ""
-  }
+  let edad: number = aniadirOEditarNumericos("Edad", persona?.getEdad());
 
   //DNI
-  let dni:string | undefined = pedirDNI();
+  let dni: string | undefined = pedirDNI();
 
   //CUMPLEANIOS
   let cumpleanios: Date | undefined;
@@ -150,17 +172,11 @@ export function pedirDatosPersona(persona?: Persona): Persona {
     cumpleanios == undefined ? (persona != undefined ? cumpleanios = persona.getCumpleanios() : "") : ""
   }
 
-
   //COLOR FAVORITO
-  let colorFavorito : string | undefined;
-  while (colorFavorito == undefined) {
-    persona != undefined ? console.log("ColorFavorito actual:" + persona.getColorFavorito()) : ""
-    colorFavorito = readlineSync.question("Introduce el color favorito:")
-    colorFavorito == undefined ? (persona != undefined ? colorFavorito = persona.getColorFavorito() : "") : ""
-  }
+  let colorFavorito: string = aniadirOEditarTexto("Color", persona?.getColorFavorito())
 
   //SEXO
-  let sexo : string | undefined;
+  let sexo: string | undefined;
   while (sexo === undefined) {
     persona != undefined ? console.log("Sexo actual:" + persona.getSexo()) : ""
     sexo = readlineSync.question("Introduce el sexo (H:Hombre | M:Mujer):")
@@ -168,37 +184,44 @@ export function pedirDatosPersona(persona?: Persona): Persona {
   }
 
   //DIRECCION
-  let direcciones : Direccion[] = aniadirOEditarDireccion(persona);
-  
+  let direcciones: Direccion[] = aniadirOEditarDireccion(persona);
+
   //MAIL 
-  let mail : Mail = new Mail(
-    readlineSync.question("Introduce el tipo de correo electronico:"),
+  let tipoMail;
+
+  while (tipoMail === undefined) {
+    tipoMail = readlineSync.question("Introduce el tipo de correo electronico (PERSONAL|EMPRESA):");
+    tipoMail = validarTipoEmail(tipoMail);
+  }
+
+  let mail: Mail = new Mail(
+    tipoMail,
     readlineSync.question("Introduce el correo electronico:")
   );
 
   //TELEFONO  
 
-  let tipoTelefono, numeroTelefono ;
+  let tipoTelefono, numeroTelefono;
 
-  while (tipoTelefono === undefined){
-    tipoTelefono= readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
-    tipoTelefono= validarTipoTelefono(tipoTelefono);
+  while (tipoTelefono === undefined) {
+    tipoTelefono = readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
+    tipoTelefono = validarTipoTelefono(tipoTelefono);
   }
-  while(numeroTelefono === undefined){
-    numeroTelefono=parseInt(readlineSync.question("Introduce el numero de telefono:"));
-    numeroTelefono=validarNumeroTelefono(numeroTelefono);
+  while (numeroTelefono === undefined) {
+    numeroTelefono = parseInt(readlineSync.question("Introduce el numero de telefono:"));
+    //numeroTelefono=validarNumeroTelefono(numeroTelefono);
   }
 
-  let telefono : Telefono  = new Telefono(tipoTelefono, numeroTelefono);
+  let telefono: Telefono = new Telefono(tipoTelefono, numeroTelefono);
 
 
   //NOTAS
-  let notas : string = readlineSync.question("Introduce las notas:");
+  let notas: string = readlineSync.question("Introduce las notas:");
 
   return new Persona(
     nombre,
-    dni,
     apellidos,
+    dni,
     edad,
     cumpleanios,
     colorFavorito,

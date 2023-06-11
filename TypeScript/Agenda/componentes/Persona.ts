@@ -15,7 +15,7 @@ export class Persona {
   private telefonos: Telefono[];
   private notas: string;
 
-  constructor(nombre: string, dni: string, apellidos: string, edad: number, cumpleanios: Date, colorFavorito: string, sexo: string, direcciones: Direccion[], mails: Mail[], telefonos: Telefono[], notas: string) {
+  constructor(nombre: string, apellidos: string, dni: string, edad: number, cumpleanios: Date, colorFavorito: string, sexo: string, direcciones: Direccion[], mails: Mail[], telefonos: Telefono[], notas: string) {
     this.nombre = nombre;
     this.dni = dni;
     this.apellidos = apellidos;

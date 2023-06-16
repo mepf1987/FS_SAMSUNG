@@ -25,6 +25,25 @@ function mostrarMenu(): number | null {
     return opcion;
   }
 
+// Función para escoger el parametro a editar
+function escogerParametroAEditar(): number | undefined {
+  console.log("¿Que parametro deseas editar?");
+  console.log("1. Agregar persona");
+  console.log("2. Buscar persona");
+  console.log("3. Editar persona");
+  console.log("4. Cantidad de personas registradas");
+  console.log("5. Salir");
+
+  const opcion = readlineSync.questionInt("Ingrese una opcion: ");
+
+  if (isNaN(opcion) || opcion < 1 || opcion > 5) {
+    console.log("Opción inválida, por favor ingrese una opcion válida.");
+    return undefined;
+  }
+
+  return opcion;
+}
+
   function mostrarPersonas(){
     miAgenda.mostrarTodas();
   }
@@ -95,7 +114,8 @@ function mostrarMenu(): number | null {
             break;
           case 3: // Editar persona
             var personaEncontrada = miAgenda.buscarPersona();
-            personaEncontrada!==undefined?miAgenda.editarPersona(personaEncontrada):console.log("Persona NO encontrada");
+            let paramToEdit=escogerParametroAEditar();
+            personaEncontrada!==undefined && paramToEdit!== undefined ?miAgenda.editarPersona(paramToEdit,personaEncontrada):console.log("Persona NO encontrada");
             break;
           case 4: 
             var numeroPersonas= miAgenda.contarPersonas();

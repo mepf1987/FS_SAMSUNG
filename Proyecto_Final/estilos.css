@@ -1,0 +1,35 @@
+.group{
+    padding: 2% 1%;
+    text-align: center;
+    background-color: #eaf5f8;
+    margin: 0 auto;
+    width: 20%;
+    min-height: 250px;
+    color:#00304E;
+    border: 2px solid #00304E;
+    border-radius: 5px;
+}
+
+
+.error{
+    color: red;
+    font-weight: bold ;
+}
+
+.form-question{
+    margin: 5% 0%;
+    text-align:left;
+}
+
+.r-ok{
+    color: green;
+}
+
+.form-btn{
+    width: 120px;
+    height: 30px;
+    background-color: blue;
+    border: 1px solid blue;
+    color: white;
+    border-radius: 5px;
+}

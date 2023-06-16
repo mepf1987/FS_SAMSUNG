@@ -24,10 +24,7 @@ export class Agenda {
  
   public buscarPersona( dni :string|undefined = undefined) {
 
-    if(dni === undefined){
-      dni =  pedirDNI()
-    }
-
+    (dni === undefined)?dni = pedirDNI() :"";
     let personaEncontrada: Persona | undefined = undefined;
     this.personas.forEach((persona) => {
       if (persona.getDni() === dni) {
@@ -46,7 +43,7 @@ export class Agenda {
     console.log(JSON.stringify(this.personas));
   }
 
-  public editarPersona( dni :string|undefined = undefined ) {
+  public editarPersona( paramToEdit:number , dni :string|undefined = undefined ) {
     let personaAEditar: Persona|undefined;
     if(personaAEditar  === undefined){
       personaAEditar= this.buscarPersona(dni);

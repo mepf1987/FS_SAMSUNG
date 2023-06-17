@@ -44,12 +44,15 @@ export class Agenda {
   }
 
   public editarPersona( paramToEdit:number , dni :string|undefined = undefined ) {
-    let personaAEditar: Persona|undefined;
+    let personaAEditar: Persona|undefined= this.buscarPersona(dni);
+
     if(personaAEditar  === undefined){
-      personaAEditar= this.buscarPersona(dni);
+      console.log(JSON.stringify(personaAEditar));
+      if(paramToEdit===1){
+
+      }
     }
-
-
+    
 
   }
 

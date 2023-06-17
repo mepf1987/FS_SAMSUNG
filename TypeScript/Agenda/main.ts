@@ -26,21 +26,18 @@ function mostrarMenu(): number | null {
   }
 
 // Función para escoger el parametro a editar
-function escogerParametroAEditar(): number | undefined {
+function escogerParametroAEditar() {
   console.log("¿Que parametro deseas editar?");
-  console.log("1. Agregar persona");
-  console.log("2. Buscar persona");
-  console.log("3. Editar persona");
-  console.log("4. Cantidad de personas registradas");
+  console.log("1. Email");
+  console.log("2. Telefono");
+  console.log("3. Dirección");
+  //console.log("4. Otro");
   console.log("5. Salir");
-
-  const opcion = readlineSync.questionInt("Ingrese una opcion: ");
-
-  if (isNaN(opcion) || opcion < 1 || opcion > 5) {
-    console.log("Opción inválida, por favor ingrese una opcion válida.");
-    return undefined;
+  var opcion = readlineSync.questionInt("Ingrese una opcion: ");
+  if (isNaN(opcion) || opcion < 1 || opcion > 4) {
+      console.log("Opción inválida, por favor ingrese una opcion válida.");
+      return undefined;
   }
-
   return opcion;
 }
 
@@ -113,9 +110,8 @@ function escogerParametroAEditar(): number | undefined {
             personaEncontrada!==null? console.log("Persona encontrada:", personaEncontrada):console.log("Persona NO encontrada"); 
             break;
           case 3: // Editar persona
-            var personaEncontrada = miAgenda.buscarPersona();
-            let paramToEdit=escogerParametroAEditar();
-            personaEncontrada!==undefined && paramToEdit!== undefined ?miAgenda.editarPersona(paramToEdit,personaEncontrada):console.log("Persona NO encontrada");
+           let paramToEdit=escogerParametroAEditar();
+           paramToEdit!== undefined ?miAgenda.editarPersona(paramToEdit):console.log("Persona NO encontrada");
             break;
           case 4: 
             var numeroPersonas= miAgenda.contarPersonas();

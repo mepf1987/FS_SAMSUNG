@@ -76,6 +76,40 @@ function aniadirOEditarDireccion(persona) {
     }
     return direcciones;
 }
+function aniadirOEditarMail(isEdit, mail, persona) {
+    if (isEdit === void 0) { isEdit = false; }
+    var mails;
+    var tipoMail;
+    persona != undefined ? mails = persona.getMails() : mails = [];
+    if (mail === undefined) {
+        while (tipoMail === undefined) {
+            tipoMail = readlineSync.question("Introduce el tipo de correo electronico (PERSONAL|EMPRESA):");
+            tipoMail = (0, Mail_1.validarTipoEmail)(tipoMail);
+        }
+        mail = new Mail_1.Mail(tipoMail, readlineSync.question("Introduce el correo electronico:"));
+    }
+    if (isEdit) {
+    }
+    else {
+        mails.push(mail);
+    }
+    return mails;
+}
+function aniadirOEditarTelefono(persona) {
+    var telefonos = [];
+    var tipoTelefono, numeroTelefono;
+    while (tipoTelefono === undefined) {
+        tipoTelefono = readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
+        tipoTelefono = (0, Telefono_1.validarTipoTelefono)(tipoTelefono);
+    }
+    while (numeroTelefono === undefined) {
+        numeroTelefono = parseInt(readlineSync.question("Introduce el numero de telefono:"));
+        //numeroTelefono=validarNumeroTelefono(numeroTelefono);
+    }
+    var telefono = new Telefono_1.Telefono(tipoTelefono, numeroTelefono);
+    telefonos.push(telefono);
+    return telefonos;
+}
 function validarTextoDefinido(texto) {
     var regex = /^[a-zA-Z\s]+$/;
     var isValid = true;
@@ -148,25 +182,11 @@ function pedirDatosPersona(persona) {
     //DIRECCION
     var direcciones = aniadirOEditarDireccion(persona);
     //MAIL 
-    var tipoMail;
-    while (tipoMail === undefined) {
-        tipoMail = readlineSync.question("Introduce el tipo de correo electronico (PERSONAL|EMPRESA):");
-        tipoMail = (0, Mail_1.validarTipoEmail)(tipoMail);
-    }
-    var mail = new Mail_1.Mail(tipoMail, readlineSync.question("Introduce el correo electronico:"));
+    var mails = aniadirOEditarMail();
     //TELEFONO  
-    var tipoTelefono, numeroTelefono;
-    while (tipoTelefono === undefined) {
-        tipoTelefono = readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
-        tipoTelefono = (0, Telefono_1.validarTipoTelefono)(tipoTelefono);
-    }
-    while (numeroTelefono === undefined) {
-        numeroTelefono = parseInt(readlineSync.question("Introduce el numero de telefono:"));
-        //numeroTelefono=validarNumeroTelefono(numeroTelefono);
-    }
-    var telefono = new Telefono_1.Telefono(tipoTelefono, numeroTelefono);
+    var telefonos = aniadirOEditarTelefono(persona);
     //NOTAS
     var notas = readlineSync.question("Introduce las notas:");
-    return new Persona_1.Persona(nombre, apellidos, dni, edad, cumpleanios, colorFavorito, sexo, direcciones, [mail], [telefono], notas);
+    return new Persona_1.Persona(nombre, apellidos, dni, edad, cumpleanios, colorFavorito, sexo, direcciones, mails, telefonos, notas);
 }
 exports.pedirDatosPersona = pedirDatosPersona;

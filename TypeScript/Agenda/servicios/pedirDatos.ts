@@ -103,6 +103,67 @@ function aniadirOEditarDireccion(persona?: Persona): Direccion[] {
 
 }
 
+function aniadirOEditarMail(isEdit: Boolean = false, indexMailEdit?:BigInteger | any, mail?:Mail, persona?: Persona): Mail[] {
+
+  let mails: Mail[] ;
+  let tipoMail;
+
+  persona!=undefined?mails=persona.getMails():mails=[];
+
+  if(mail === undefined){
+    while (tipoMail === undefined) {
+      tipoMail = readlineSync.question("Introduce el tipo de correo electronico (PERSONAL|EMPRESA):");
+      tipoMail = validarTipoEmail(tipoMail);
+    }
+
+    mail = new Mail(
+      tipoMail,
+      readlineSync.question("Introduce el correo electronico:")
+    );
+    
+  }
+  
+  /*let index 
+  let indexMailEditEsEntero = indexMailEditEsEntero % 1;*/
+
+
+  /*if(isEdit && persona!== undefined && indexMailEditEsEntero === 0){
+
+    mails[indexMailEdit-1].direccion= mail.direccion;
+    mails[indexMailEdit-1].tipo = mail.tipo;
+
+  }else{*/
+
+    mails.push(mail);
+
+//  }
+
+  return mails; 
+
+}
+
+function aniadirOEditarTelefono(persona?: Persona): Telefono[] {
+
+  let telefonos: Telefono[] = [];
+  let tipoTelefono, numeroTelefono;
+
+  while (tipoTelefono === undefined) {
+    tipoTelefono = readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
+    tipoTelefono = validarTipoTelefono(tipoTelefono);
+  }
+  while (numeroTelefono === undefined) {
+    numeroTelefono = parseInt(readlineSync.question("Introduce el numero de telefono:"));
+    //numeroTelefono=validarNumeroTelefono(numeroTelefono);
+  }
+
+  let telefono: Telefono = new Telefono(tipoTelefono, numeroTelefono);
+
+  telefonos.push(telefono);
+
+  return telefonos; 
+
+}
+
 function validarTextoDefinido(texto: any): Boolean {
   const regex = /^[a-zA-Z\s]+$/;
   let isValid = true;
@@ -187,33 +248,10 @@ export function pedirDatosPersona(persona?: Persona): Persona {
   let direcciones: Direccion[] = aniadirOEditarDireccion(persona);
 
   //MAIL 
-  let tipoMail;
-
-  while (tipoMail === undefined) {
-    tipoMail = readlineSync.question("Introduce el tipo de correo electronico (PERSONAL|EMPRESA):");
-    tipoMail = validarTipoEmail(tipoMail);
-  }
-
-  let mail: Mail = new Mail(
-    tipoMail,
-    readlineSync.question("Introduce el correo electronico:")
-  );
+  let mails: Mail[] = aniadirOEditarMail();
 
   //TELEFONO  
-
-  let tipoTelefono, numeroTelefono;
-
-  while (tipoTelefono === undefined) {
-    tipoTelefono = readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
-    tipoTelefono = validarTipoTelefono(tipoTelefono);
-  }
-  while (numeroTelefono === undefined) {
-    numeroTelefono = parseInt(readlineSync.question("Introduce el numero de telefono:"));
-    //numeroTelefono=validarNumeroTelefono(numeroTelefono);
-  }
-
-  let telefono: Telefono = new Telefono(tipoTelefono, numeroTelefono);
-
+  let telefonos: Telefono[] =  aniadirOEditarTelefono(persona);
 
   //NOTAS
   let notas: string = readlineSync.question("Introduce las notas:");
@@ -227,8 +265,8 @@ export function pedirDatosPersona(persona?: Persona): Persona {
     colorFavorito,
     sexo,
     direcciones,
-    [mail],
-    [telefono],
+    mails,
+    telefonos,
     notas
   );
 }

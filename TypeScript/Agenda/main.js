@@ -61,7 +61,12 @@ function preCargaPersonas() {
     miAgenda.agregarPersona(persona3);
 }
 function editarDatosPersonas() {
-    // 
+    var newMail1Persona1 = new Mail_1.Mail(Mail_1.EmailType.PERSONAL, "anitaPardo93@mail.com");
+    miAgenda.editarMail("95287790D", 0, newMail1Persona1);
+    var newTelefono1Persona2 = new Telefono_1.Telefono(Telefono_1.PhoneType.MOVIL, 666666666);
+    miAgenda.editarTelefono("12407125M", 0, newTelefono1Persona2);
+    var newDireccion1Persona3 = new Direccion_1.Direccion(3, "Calle Covandonga", 5, "332017", "Gijon", "Asturias");
+    miAgenda.editarDireccion("81754026C", 0, newDireccion1Persona3);
 }
 // Creamos una instancia de la agenda
 var miAgenda = new Agenda_1.Agenda();

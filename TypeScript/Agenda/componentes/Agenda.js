@@ -41,8 +41,28 @@ var Agenda = /** @class */ (function () {
         var personaAEditar = this.buscarPersona(dni);
         if (personaAEditar === undefined) {
             console.log(JSON.stringify(personaAEditar));
-            if (paramToEdit === 1) {
-            }
+            //Sin terminar
+        }
+    };
+    Agenda.prototype.editarMail = function (dni, indexMailEdit, mail) {
+        if (dni === void 0) { dni = undefined; }
+        var personaAEditar = this.buscarPersona(dni);
+        if (personaAEditar !== undefined) {
+            (0, pedirDatos_1.aniadirOEditarMail)(true, indexMailEdit, mail, personaAEditar);
+        }
+    };
+    Agenda.prototype.editarTelefono = function (dni, indexMailEdit, telefono) {
+        if (dni === void 0) { dni = undefined; }
+        var personaAEditar = this.buscarPersona(dni);
+        if (personaAEditar !== undefined) {
+            (0, pedirDatos_1.aniadirOEditarTelefono)(true, indexMailEdit, telefono, personaAEditar);
+        }
+    };
+    Agenda.prototype.editarDireccion = function (dni, indexMailEdit, direccion) {
+        if (dni === void 0) { dni = undefined; }
+        var personaAEditar = this.buscarPersona(dni);
+        if (personaAEditar !== undefined) {
+            (0, pedirDatos_1.aniadirOEditarDireccion)(personaAEditar, "S", 0, direccion);
         }
     };
     return Agenda;

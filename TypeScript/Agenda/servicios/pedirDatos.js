@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pedirDatosPersona = exports.pedirDNI = void 0;
+exports.pedirDatosPersona = exports.aniadirOEditarTelefono = exports.aniadirOEditarMail = exports.aniadirOEditarDireccion = exports.pedirDNI = void 0;
 var Direccion_1 = require("../componentes/Direccion");
 var Mail_1 = require("../componentes/Mail");
 var Telefono_1 = require("../componentes/Telefono");
@@ -16,17 +16,20 @@ function pedirDNI(persona) {
     return dni;
 }
 exports.pedirDNI = pedirDNI;
-function aniadirOEditarDireccion(persona) {
+function aniadirOEditarDireccion(persona, accion, indexMailEdit, direccion) {
     var direcciones;
-    var accion;
     var numDirecciones = 1;
-    if (persona != undefined) {
-        console.log("Las direcciones registradas son:");
-        console.log(persona.getDirecciones());
+    /*if (persona != undefined) {
+      console.log("Las direcciones registradas son:")
+      console.log(persona.getDirecciones());
+    }*/
+    if (accion === undefined) {
+        persona != undefined ? accion = readlineSync.question("Acciones a realizar: S - Sobreescribir alguna existente, A - Aniadir a lista actual, E - Empezar nueva lista ") : direcciones = [];
     }
-    persona != undefined ? accion = readlineSync.question("Acciones a realizar: S - Sobreescribir alguna existente, A - Aniadir a lista actual, E - Empezar nueva lista ") : direcciones = [];
     persona != undefined && accion !== 'E' ? direcciones = persona.getDirecciones() : direcciones = [];
-    numDirecciones = parseInt(readlineSync.question("Numero de direcciones que quieres aniadir o editar:"));
+    if (indexMailEdit === undefined) {
+        numDirecciones = parseInt(readlineSync.question("Numero de direcciones que quieres aniadir o editar:"));
+    }
     if (accion !== 'S') {
         while (direcciones.length === 0 || numDirecciones != 0) {
             var calle = aniadirOEditarTexto("Calle");
@@ -44,39 +47,52 @@ function aniadirOEditarDireccion(persona) {
                 letra = aniadirOEditarTexto("Letra", letra, false);
             }
             letra != undefined ? aniadirOEditarTexto("Letra", letra) : "";
-            var direccion = new Direccion_1.Direccion(direcciones.length > 0 ? direcciones.length - 1 : 1, calle, numero, codigoPostal, poblacion, provincia, piso, letra);
+            var direccion_1 = new Direccion_1.Direccion(direcciones.length > 0 ? direcciones.length - 1 : 1, calle, numero, codigoPostal, poblacion, provincia, piso, letra);
             numDirecciones -= 1;
-            direcciones.push(direccion);
+            direcciones.push(direccion_1);
         }
     }
     else {
-        while (numDirecciones != 0) {
-            var direccionEditar = parseInt(readlineSync.question("Indica el id de la direccion a editar:"));
-            console.log("Se va a modificar la direccion con id:" + direcciones[direccionEditar].getId());
-            direcciones[direccionEditar].setNombreCalle(aniadirOEditarTexto("Calle", direcciones[direccionEditar].getNombreCalle()));
-            direcciones[direccionEditar].setNumero(aniadirOEditarNumericos("Numero", direcciones[direccionEditar].getNumero()));
-            var codigoPostal = void 0;
-            while (codigoPostal == undefined) {
-                console.log("Codigo postal actual:" + direcciones[direccionEditar].getCodigoPostal());
-                codigoPostal = readlineSync.question("Introduce el nuevo codigo postal:");
-                codigoPostal == undefined ? (direcciones[direccionEditar].getCodigoPostal() != undefined ? codigoPostal = direcciones[direccionEditar].getCodigoPostal() : codigoPostal = undefined) : direcciones[direccionEditar].setCodigoPostal(codigoPostal);
+        if (direccion === undefined) {
+            while (numDirecciones != 0) {
+                var direccionEditar = parseInt(readlineSync.question("Indica el id de la direccion a editar:"));
+                console.log("Se va a modificar la direccion con id:" + direcciones[direccionEditar].getId());
+                direcciones[direccionEditar].setNombreCalle(aniadirOEditarTexto("Calle", direcciones[direccionEditar].getNombreCalle()));
+                direcciones[direccionEditar].setNumero(aniadirOEditarNumericos("Numero", direcciones[direccionEditar].getNumero()));
+                var codigoPostal = void 0;
+                while (codigoPostal == undefined) {
+                    console.log("Codigo postal actual:" + direcciones[direccionEditar].getCodigoPostal());
+                    codigoPostal = readlineSync.question("Introduce el nuevo codigo postal:");
+                    codigoPostal == undefined ? (direcciones[direccionEditar].getCodigoPostal() != undefined ? codigoPostal = direcciones[direccionEditar].getCodigoPostal() : codigoPostal = undefined) : direcciones[direccionEditar].setCodigoPostal(codigoPostal);
+                }
+                direcciones[direccionEditar].setPoblacion(aniadirOEditarTexto("Poblacion", direcciones[direccionEditar].getPoblacion()));
+                direcciones[direccionEditar].setProvincia(aniadirOEditarTexto("Provincia", direcciones[direccionEditar].getProvincia()));
+                direcciones[direccionEditar].setPiso(aniadirOEditarNumericos("Piso", direcciones[direccionEditar].getPiso()));
+                direcciones[direccionEditar].setLetra(aniadirOEditarTexto("Letra", direcciones[direccionEditar].getLetra()));
+                var letra = void 0;
+                //while(letra==undefined){
+                console.log("Letra actual:" + direcciones[direccionEditar].getLetra());
+                letra = readlineSync.question("Introduce el nuevo letra:");
+                letra == undefined ? (direcciones[direccionEditar].getLetra() != undefined ? letra = direcciones[direccionEditar].getLetra() : letra = undefined) : direcciones[direccionEditar].setLetra(letra);
+                //}
+                numDirecciones -= 1;
             }
-            direcciones[direccionEditar].setPoblacion(aniadirOEditarTexto("Poblacion", direcciones[direccionEditar].getPoblacion()));
-            direcciones[direccionEditar].setProvincia(aniadirOEditarTexto("Provincia", direcciones[direccionEditar].getProvincia()));
-            direcciones[direccionEditar].setPiso(aniadirOEditarNumericos("Piso", direcciones[direccionEditar].getPiso()));
-            direcciones[direccionEditar].setLetra(aniadirOEditarTexto("Letra", direcciones[direccionEditar].getLetra()));
-            var letra = void 0;
-            //while(letra==undefined){
-            console.log("Letra actual:" + direcciones[direccionEditar].getLetra());
-            letra = readlineSync.question("Introduce el nuevo letra:");
-            letra == undefined ? (direcciones[direccionEditar].getLetra() != undefined ? letra = direcciones[direccionEditar].getLetra() : letra = undefined) : direcciones[direccionEditar].setLetra(letra);
-            //}
-            numDirecciones -= 1;
+        }
+        else {
+            if (persona !== undefined) {
+                if (indexMailEdit === undefined) {
+                    indexMailEdit = parseInt(readlineSync.question("Introduce el index o posición del mail a editar:"));
+                }
+                var i = indexMailEdit === 0 ? 0 : indexMailEdit - 1;
+                direcciones[i] = direccion;
+                persona.setDirecciones(direcciones);
+            }
         }
     }
     return direcciones;
 }
-function aniadirOEditarMail(isEdit, mail, persona) {
+exports.aniadirOEditarDireccion = aniadirOEditarDireccion;
+function aniadirOEditarMail(isEdit, indexMailEdit, mail, persona) {
     if (isEdit === void 0) { isEdit = false; }
     var mails;
     var tipoMail;
@@ -88,28 +104,52 @@ function aniadirOEditarMail(isEdit, mail, persona) {
         }
         mail = new Mail_1.Mail(tipoMail, readlineSync.question("Introduce el correo electronico:"));
     }
-    if (isEdit) {
+    if (isEdit && persona !== undefined) {
+        if (indexMailEdit === undefined) {
+            indexMailEdit = parseInt(readlineSync.question("Introduce el index o posición del mail a editar:"));
+        }
+        var i = indexMailEdit === 0 ? 0 : indexMailEdit - 1;
+        mails[i].direccion = mail.direccion;
+        mails[i].tipo = mail.tipo;
+        persona.setMails(mails);
     }
     else {
         mails.push(mail);
     }
     return mails;
 }
-function aniadirOEditarTelefono(persona) {
+exports.aniadirOEditarMail = aniadirOEditarMail;
+function aniadirOEditarTelefono(isEdit, indexTelefonoEdit, telefono, persona) {
+    if (isEdit === void 0) { isEdit = false; }
     var telefonos = [];
     var tipoTelefono, numeroTelefono;
-    while (tipoTelefono === undefined) {
-        tipoTelefono = readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
-        tipoTelefono = (0, Telefono_1.validarTipoTelefono)(tipoTelefono);
+    persona != undefined ? telefonos = persona.getTelefonos() : telefonos = [];
+    if (telefono === undefined) {
+        while (tipoTelefono === undefined) {
+            tipoTelefono = readlineSync.question("Introduce el tipo de telefono (MOVIL|FIJO):");
+            tipoTelefono = (0, Telefono_1.validarTipoTelefono)(tipoTelefono);
+        }
+        while (numeroTelefono === undefined) {
+            numeroTelefono = parseInt(readlineSync.question("Introduce el numero de telefono:"));
+            //numeroTelefono=validarNumeroTelefono(numeroTelefono);
+        }
+        telefono = new Telefono_1.Telefono(tipoTelefono, numeroTelefono);
     }
-    while (numeroTelefono === undefined) {
-        numeroTelefono = parseInt(readlineSync.question("Introduce el numero de telefono:"));
-        //numeroTelefono=validarNumeroTelefono(numeroTelefono);
+    if (isEdit && persona !== undefined) {
+        if (indexTelefonoEdit === undefined) {
+            indexTelefonoEdit = parseInt(readlineSync.question("Introduce el index o posición del telefono a editar:"));
+        }
+        var i = indexTelefonoEdit === 0 ? 0 : indexTelefonoEdit - 1;
+        telefonos[i].numero = telefono.numero;
+        telefonos[i].tipo = telefono.tipo;
+        persona.setTelefonos(telefonos);
     }
-    var telefono = new Telefono_1.Telefono(tipoTelefono, numeroTelefono);
-    telefonos.push(telefono);
+    else {
+        telefonos.push(telefono);
+    }
     return telefonos;
 }
+exports.aniadirOEditarTelefono = aniadirOEditarTelefono;
 function validarTextoDefinido(texto) {
     var regex = /^[a-zA-Z\s]+$/;
     var isValid = true;
@@ -184,7 +224,7 @@ function pedirDatosPersona(persona) {
     //MAIL 
     var mails = aniadirOEditarMail();
     //TELEFONO  
-    var telefonos = aniadirOEditarTelefono(persona);
+    var telefonos = aniadirOEditarTelefono();
     //NOTAS
     var notas = readlineSync.question("Introduce las notas:");
     return new Persona_1.Persona(nombre, apellidos, dni, edad, cumpleanios, colorFavorito, sexo, direcciones, mails, telefonos, notas);

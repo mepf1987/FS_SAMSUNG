@@ -77,8 +77,14 @@ function escogerParametroAEditar() {
 
   function editarDatosPersonas() {
     
-  // 
+    let newMail1Persona1: Mail = new Mail( EmailType.PERSONAL, "anitaPardo93@mail.com");
+    miAgenda.editarMail("95287790D",0,newMail1Persona1);
 
+    let newTelefono1Persona2: Telefono = new Telefono(PhoneType.MOVIL, 666666666);
+    miAgenda.editarTelefono("12407125M",0,newTelefono1Persona2);
+
+    let newDireccion1Persona3: Direccion = new Direccion(3,"Calle Covandonga",5,"332017","Gijon","Asturias");
+    miAgenda.editarDireccion("81754026C",0,newDireccion1Persona3);
 
   }
   

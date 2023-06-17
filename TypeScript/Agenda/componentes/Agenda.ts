@@ -1,5 +1,8 @@
 import { Persona } from "./Persona";
-import { pedirDatosPersona, pedirDNI } from "../servicios/pedirDatos";
+import { Mail } from "./Mail";
+import { Telefono } from "./Telefono";
+import { Direccion } from "./Direccion";
+import { pedirDatosPersona, pedirDNI, aniadirOEditarMail, aniadirOEditarTelefono, aniadirOEditarDireccion } from "../servicios/pedirDatos";
 
 export class Agenda {
   private personas: Persona[];
@@ -48,12 +51,43 @@ export class Agenda {
 
     if(personaAEditar  === undefined){
       console.log(JSON.stringify(personaAEditar));
-      if(paramToEdit===1){
-
-      }
+      //Sin terminar
     }
     
 
   }
+
+  public editarMail( dni :string|undefined = undefined , indexMailEdit: number, mail: Mail) {
+    let personaAEditar: Persona|undefined= this.buscarPersona(dni);
+
+    if(personaAEditar  !== undefined){
+      aniadirOEditarMail(true, indexMailEdit , mail, personaAEditar)
+
+    }
+   
+
+  }
+
+  public editarTelefono( dni :string|undefined = undefined , indexMailEdit: number, telefono: Telefono) {
+    let personaAEditar: Persona|undefined= this.buscarPersona(dni);
+
+    if(personaAEditar  !== undefined){
+      aniadirOEditarTelefono(true, indexMailEdit , telefono, personaAEditar)
+
+    }
+   
+  }
+
+  public editarDireccion( dni :string|undefined = undefined , indexMailEdit: number, direccion?: Direccion) {
+    let personaAEditar: Persona|undefined= this.buscarPersona(dni);
+
+    if(personaAEditar  !== undefined){
+      aniadirOEditarDireccion(personaAEditar, "S", 0, direccion)
+
+    } 
+   
+  }
+
+  
 
 }

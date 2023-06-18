@@ -10,71 +10,77 @@
 </head>
 
 <body>
-    <div class="group">
+    <div class="group" id="crearRegistros">
         <form method="POST" action="formulario.php" >
-            <div id="crearRegistros">
-                <h2>
-                    <em>Formulario de Registro</em>
-                </h2>
-                <span class="error">
-                    <?php echo $generalErr;?>
+            <h2>
+                <em>Formulario de Registro</em>
+            </h2>
+            <span class="error">
+                <?php echo $generalErr;?>
+            </span>
+
+            <div class="form-question">
+                <label for="nombre">Nombre<spam><em>(requerido)</em></spam></label>
+                <input type="text" name="nombre" class="form-input" required />
+                <span class="error">*
+                    <?php echo $nombreErr;?>
                 </span>
-
-                <div class="form-question">
-                    <label for="nombre">Nombre<spam><em>(requerido)</em></spam></label>
-                    <input type="text" name="nombre" class="form-input" required />
-                    <span class="error">*
-                        <?php echo $nombreErr;?>
-                    </span>
-                </div>
-                <div class="form-question">
-                    <label for="primerApellido">Primer apellido<spam><em>(requerido)</em></spam></label>
-                    <input type="text" name="primerApellido" class="form-input" required />
-                    <span class="error">*
-                        <?php echo $primerApellidoErr;?>
-                    </span>
-                </div>
-                <div class="form-question">
-                    <label for="segundoApellido">Segundo apellido<spam><em>(requerido)</em></spam></label>
-                    <input type="text" name="segundoApellido" class="form-input" required />
-                    <span class="error">*
-                        <?php echo $segundoApellidoErr;?>
-                    </span>
-                </div>
-                <div class="form-question">
-                    <label for="email">Email<spam><em>(requerido)</em></spam></label>
-                    <input type="email" name="email" class="form-input" required />
-                    <span class="error">*
-                        <?php echo $emailErr;?>
-                    </span>
-                </div>
-                <div class="form-question">
-                    <label for="login">Login<spam><em>(requerido)</em></spam></label>
-                    <input type="text" name="login" class="form-input" required />
-                    <span class="error">*
-                        <?php echo $loginErr;?>
-                    </span>
-                </div>
-                <div class="form-question">
-                    <label for="password">Password<spam><em>(requerido)</em></spam></label>
-                    <input type="password" name="password" class="form-input" minlength="4" maxlength="8" required />
-                    <span class="error">*
-                        <?php echo $passwordErr;?>
-                    </span>
-                </div>
-
-                <input type="submit" name="Enviar" class="form-btn" value="Enviar" /></br>
             </div>
-            
+            <div class="form-question">
+                <label for="primerApellido">Primer apellido<spam><em>(requerido)</em></spam></label>
+                <input type="text" name="primerApellido" class="form-input" required />
+                <span class="error">*
+                    <?php echo $primerApellidoErr;?>
+                </span>
+            </div>
+            <div class="form-question">
+                <label for="segundoApellido">Segundo apellido<spam><em>(requerido)</em></spam></label>
+                <input type="text" name="segundoApellido" class="form-input" required />
+                <span class="error">*
+                    <?php echo $segundoApellidoErr;?>
+                </span>
+            </div>
+            <div class="form-question">
+                <label for="email">Email<spam><em>(requerido)</em></spam></label>
+                <input type="email" name="email" class="form-input" required />
+                <span class="error">*
+                    <?php echo $emailErr;?>
+                </span>
+            </div>
+            <div class="form-question">
+                <label for="login">Login<spam><em>(requerido)</em></spam></label>
+                <input type="text" name="login" class="form-input" required />
+                <span class="error">*
+                    <?php echo $loginErr;?>
+                </span>
+            </div>
+            <div class="form-question">
+                <label for="password">Password<spam><em>(requerido)</em></spam></label>
+                <input type="password" name="password" class="form-input" minlength="4" maxlength="8" required />
+                <span class="error">*
+                    <?php echo $passwordErr;?>
+                </span>
+            </div>
+
+            <input type="submit" name="Enviar" class="form-btn" value="Enviar" /></br>
+
             <p id="respuesta"><?php echo $respuesta; ?></p>
 
-            <div id="recuperarRegistros"></div>
 
         </form>
 
+        <button name="Consultar" class="form-btn" onclick="showUsuariosRegistrados()" id="consultar" >Consultar</button></br>
+
 
     </div>
+    <div id="usuariosRegistrados"  class="group">
+        <h2>
+            <em>Usuarios registrados</em>
+        </h2>
 
+        <?php echo $usuariosRegistrados; ?>
+        </br>
+    </div>
 
 
 </body>

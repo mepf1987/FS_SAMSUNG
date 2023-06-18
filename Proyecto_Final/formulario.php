@@ -10,7 +10,7 @@
     }
 
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_POST) {
 
         //DB connection info
         $servername="localhost";
@@ -46,6 +46,7 @@
         $login= $_POST['login'];
         $password= $_POST['password'];
         $respuesta="";
+        $usuariosRegistrados=[];
 
 
 
@@ -65,42 +66,45 @@
                 $respuesta = "Error: " . $sql . "<br>" . $conn->error ;
             }
 
+            $sql = "SELECT * FROM usuario";
+            $result = $conn->query($sql);
+    
+            if ($result->num_rows > 0) {
+                $usuariosRegistrados="<table>";
+                $usuariosRegistrados= $usuariosRegistrados . "<tr><th>Nombre</th><th>Primer apellido</th><th>Email</th></tr>";
+            
+                // Obtener los datos de la consulta
+                while ($fila = mysqli_fetch_assoc($result)) {
+
+                    //$user = array('nombre' => $fila['NOMBRE'], 'apellido' =>  $fila['PRIMERAPELLIDO'], 'email'=>  $fila['EMAIL']);
+                    //array_push($usuariosRegistrados, $user);
+                    // Acceder a los valores de la fila
+                    $nombre = $fila['NOMBRE'];
+                    $apellido = $fila['PRIMERAPELLIDO'];
+                    $email = $fila['EMAIL'];
+            
+                    // print_r($fila);
+                    // Agregar una nueva fila a la tabla
+                    $usuariosRegistrados= $usuariosRegistrados . "<tr><td>" . $nombre . "</td><td>" . $apellido .  "</td><td>" . $email . "</td></tr>";
+                }
+                //$usuariosRegistrados= json_encode($usuariosRegistrados);
+            
+                // Finaliza la construcción de la tabla
+                $usuariosRegistrados= $usuariosRegistrados . "</table>";
+            
+                // Liberar la memoria del resultado
+                mysqli_free_result($result);
+            } 
                 
         }
-       
 
-        include "formulario.html";
+      } 
 
-      } elseif (isset($_POST['Consultar'])) {
-        
-       
-      }
-
+      include "formulario.html";
       $conn-> close();
     }
 
-   /* if($_GET){
 
-    
-       
-        $sql = "SELECT * FROM usuario";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            echo "<table><tr><th>Nombre</th><th>Primer apellido</th><th>Segundo apellido</th><th>Email</th><th>Login</th><th>Password</th></tr>";
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-                echo "<tr><td>" . $row["nombre"]. "</td><td>" . $row["primerapellido"]. "</td><td>" . $row["segundoapellido"]. "</td><td>" . $row["email"]. "</td><td>" . $row["login"]. "</td><td>" . $row["password"]. "</td></tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "0 results";
-        }
-
-        $conn-> close();
-
-
-    }*/
 
     
 
